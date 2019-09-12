@@ -2,33 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TicTacToe : MonoBehaviour {
+public class TicTacToe : MonoBehaviour
+{
 
     private int turn = 1;
     private int[,] grid = new int[3, 3];
 
-// Define start and restart
-    void Start () {
+    // Define start and restart
+    void Start()
+    {
         Restart();
     }
-    void Restart(){
-    	turn = 1;
-    	for (int i = 0; i < 3; ++i)
-    	{
-    		for (int j = 0; j < count; ++j)
-    		{
-    			grid[i,j] = 0;
-    		}
-    	}
+    void Restart()
+    {
+        turn = 1;
+        for (int i = 0; i < 3; ++i)
+        {
+            for (int j = 0; j < 3; ++j)
+            {
+                grid[i, j] = 0;
+            }
+        }
 
 
     }
 
-//judge 
+    //judge 
 
-	int judge(){
+    int judge()
+    {
 
-    	// a col
+        // a col
         for (int i = 0; i < 3; ++i)
         {
             if (grid[i, 0] != 0 && grid[i, 0] == grid[i, 1] && grid[i, 1] == grid[i, 2])
@@ -53,13 +57,13 @@ public class TicTacToe : MonoBehaviour {
         {
             return grid[1, 1];
         }
-   			
 
-   		// all click
+
+        // all click
         bool allClick = true;
-        for (int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            for (int j=0; j<3; j++)
+            for (int j = 0; j < 3; j++)
             {
                 if (grid[i, j] == 0)
                 {
@@ -77,53 +81,61 @@ public class TicTacToe : MonoBehaviour {
 
 
 
-    void OnGUI(){
+    void OnGUI()
+    {
 
-// set the outlooks
+        // set the outlooks
 
-    	//button's
-    	GUI.skin.button.fontSize = 20;
+        //button's
+        GUI.skin.button.fontSize = 20;
 
-    	//lable's
-    	GUIStyle style = new GUIStyle();
-    	style.fontSize = 40;
-    	style.normal.textColor = new Color(255,255,255);
+        //lable's
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 40;
+        style.normal.textColor = new Color(255,255,255);
 
-    	//restart or not
-    	if(GUI.Button(new Rect(360,500,80,80),"Restart")){
-    		Restart();
-    	}
+        //restart or not
+        if (GUI.Button(new Rect(360, 330, 80, 40), "Restart"))
+        {
+            Restart();
+        }
 
 
-    	//result judgement
-    	int result = judge();
-    	if(result == 1){
-    		GUI.Label(new Rect(340, 170, 100, 50), "O wins!", style);
+        //result judgement
+        int result = judge();
+        if (result == 1)
+        {
+            GUI.Label(new Rect(340, 30, 100, 50), "O wins!", style);
         }
         else if (result == 2)
         {
-            GUI.Label(new Rect(340, 170, 100, 50), "X wins!", style);
-        }else if (result == 3)
+            GUI.Label(new Rect(340, 30, 100, 50), "X wins!", style);
+        }
+        else if (result == 3)
         {
-            GUI.Label(new Rect(300, 170, 100, 50), "GameOver!", style);
+            GUI.Label(new Rect(340, 30, 100, 50), "DRAW!", style);
         }
 
         //create chess plane
-        for (int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            for(int j=0; j<3; j++) {
+            for (int j = 0; j < 3; j++)
+            {
                 if (grid[i, j] == 1)
                 {
-                    GUI.Button(new Rect(280 + i * 80, 220 + j * 80, 80, 80), "O");
-                }else if (grid[i, j] == 2)
+                    GUI.Button(new Rect(280 + i * 80, 80 + j * 80, 80, 80), "O");
+                }
+                else if (grid[i, j] == 2)
                 {
-                    GUI.Button(new Rect(280 + i * 80, 220 + j * 80, 80, 80), "X");
-                }else if (GUI.Button(new Rect(280 + i * 80, 220 + j * 80, 80, 80), "")&&result==0)
+                    GUI.Button(new Rect(280 + i * 80, 80 + j * 80, 80, 80), "X");
+                }
+                else if (GUI.Button(new Rect(280 + i * 80, 80 + j * 80, 80, 80), "") && result == 0)
                 {
                     if (turn == 1)
                     {
                         grid[i, j] = 1;
-                    }else
+                    }
+                    else
                     {
                         grid[i, j] = 2;
                     }
